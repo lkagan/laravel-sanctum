@@ -22,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/token', function () {
     $user = User::find(1);
 
+    // 'Laracon' is just a made up name that the user usually supplies and is related
+    // to their application or server using the token.
     return $user->createToken('Laracon',  [
         // Some made-up OAuth scopes (abilities)
         'create-servers',
