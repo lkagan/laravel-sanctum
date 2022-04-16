@@ -16,9 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return [
+        'user' => $request->user(),
+        'can' => [
+            'update-servers' => $request->user()->tokenCan('update-servers'),
+            'create-servers' => $request->user()->tokenCan('create-servers'),
+            'delete-servers' => $request->user()->tokenCan('delete-servers')
+        ]
+    ];
 });
 
+// To test the token was created successfully, use an HTTP client to make a
+// request to /api/user with a bearer token output from below.
 Route::get('/token', function () {
     $user = User::find(1);
 
